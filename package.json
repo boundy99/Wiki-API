@@ -1,0 +1,19 @@
+{
+  "name": "wiki-api",
+  "version": "1.0.0",
+  "description": "Wikipedia API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/boundy99/Wiki-API.git"
+  },
+  "author": "Abdoulaye Boundy Djikine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boundy99/Wiki-API/issues"
+  },
+  "homepage": "https://github.com/boundy99/Wiki-API#readme"
+}
