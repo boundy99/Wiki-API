@@ -58,9 +58,20 @@ app.route('/articles/:articlePost')
     Article.replaceOne({ title: req.params.articlePost }, { title: req.body.title, content: req.body.content },
         err => {
             if (!err) res.send("Successfully updated")
+            else res.send(err)
         }
     )
 })
+
+.patch((req, res) => {
+    Article.updateOne({ title: req.params.articlePost }, { $set: req.body },
+        err => {
+            if (!err) res.send("Successfully updated")
+            else res.send(err)
+        }
+    )
+})
+
 
 
 app.listen(3000, () => {
