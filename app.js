@@ -18,21 +18,50 @@ const articleSchema = {
 
 const Article = mongoose.model('Article', articleSchema);
 
-app.get('/articles', (req, res) => {
-    Article.find({}, (err, foundArticles) => {
-        if (!err) res.send(foundArticles);
-        else res.send(err);
+app.route('/articles')
+
+.get((req, res) => {
+        Article.find({}, (err, foundArticles) => {
+            if (!err) res.send(foundArticles);
+            else res.send(err);
+        })
     })
-})
+    .post((req, res) => {
 
-app.post('/articles', (req, res) => {
+        const newArticle = new Article({
+            title: req.body.title,
+            content: req.body.content
+        });
+        newArticle.save(err => {
+            if (!err) res.send("Successfully added")
+            else res.send(err)
+        });
+    })
+    .delete((req, res) => {
 
-    const newArticle = new Article({
-        title: req.body.title,
-        content: req.body.content
+        Article.deleteMany({}, err => {
+            if (!err) res.send("Successfully deleted")
+            else res.send(err)
+        })
     });
-    newArticle.save();
+
+
+app.route('/articles/:articlePost')
+    .get((req, res) => {
+        Article.findOne({ title: req.params.articlePost }, (err, foundArticle) => {
+            if (!err) res.send(foundArticle)
+            else res.send("No article found")
+        })
+    })
+
+.put((req, res) => {
+    Article.replaceOne({ title: req.params.articlePost }, { title: req.body.title, content: req.body.content },
+        err => {
+            if (!err) res.send("Successfully updated")
+        }
+    )
 })
+
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000")
